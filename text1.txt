@@ -1,0 +1,7 @@
+Development lead Andrey Breslav has said that Kotlin is designed to be an industrial-strength object-oriented language, and a "better language" than Java, but still be fully interoperable with Java code, allowing companies to make a gradual migration from Java to Kotlin.[22]
+Semicolons are optional as a statement terminator; in most cases a newline is sufficient for the compiler to deduce that the statement has ended.[23]
+Kotlin variable declarations and parameter lists have the data type come after the variable name (and with a colon separator), similar to Pascal and TypeScript.
+Variables in Kotlin can be read-only, declared with the val keyword, or mutable, declared with the var keyword.[24]
+Class members are public by default, and classes themselves are final by default, meaning that creating a derived class is disabled unless the base class is declared with the open keyword.
+In addition to the classes and methods (called member functions in Kotlin) of object-oriented programming, Kotlin also supports procedural programming with the use of functions.[25] Kotlin functions (and constructors) support default arguments, variable-length argument lists, named arguments and overloading by unique signature. Class member functions are virtual, i.e. dispatched based on the runtime type of the object they are called on.
+Kotlin 1.3 adds (experimental) support for contracts[26] (inspired by Eiffel's design by contract[27] programming paradigm)
