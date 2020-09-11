@@ -26,25 +26,25 @@ def key_to_matrix(key: str, n: int) -> np.ndarray:
     """
     Creates an invertible matrix from the provided string.
     """
-    key_matrix = np.identity(n)
+    key_matrix = np.identity(n, dtype=np.uint32)
     # swap two rows of the matrix
-    row1, row2 = substring_to_numbers(key[:2])
+    row1, row2 = substring_to_numbers(key[:2], n)
     key_matrix[row1], key_matrix[row2] = key_matrix[row2], key_matrix[row1]
 
     # multiply row
-    row, factor = substring_to_numbers(key[2:4])
+    row, factor = substring_to_numbers(key[2:4], n)
     key_matrix[row] *= factor
 
     # swap rows
-    row1, row2 = substring_to_numbers(key[4:6])
+    row1, row2 = substring_to_numbers(key[4:6], n)
     key_matrix[row1], key_matrix[row2] = key_matrix[row2], key_matrix[row1]
 
     # add two rows
-    row1, row2 = substring_to_numbers(key[6:8])
+    row1, row2 = substring_to_numbers(key[6:8], n)
     key_matrix[row1] += key_matrix[row2]
 
     # multiply row
-    row, factor = substring_to_numbers(key[8:10])
+    row, factor = substring_to_numbers(key[8:10], n)
     key_matrix[row] *= factor
 
     return key_matrix
@@ -63,11 +63,13 @@ def substring_to_numbers(sub_str: str, n: int):
 def text_to_matrix(plain_text: str) -> np.ndarray:
     side_length = math.ceil(math.sqrt(len(plain_text)))
     text_matrix = np.zeros((side_length, side_length), dtype=np.uint32)
+    # make the text have as many symbols as the array has elements
+    padded_text = plain_text + ''.join(['~' for _ in range(side_length ** 2 - len(plain_text))])
 
     text_index = 0
     for i in range(side_length):
         for j in range(side_length):
-            text_matrix[i][j] = ord(plain_text[text_index])
+            text_matrix[i][j] = ord(padded_text[text_index])
             text_index += 1
 
     return text_matrix
@@ -78,6 +80,7 @@ def matrix_to_text(matrix: np.ndarray) -> str:
     for row in matrix:
         for num in row:
             text += num_to_str(num)
+    return text
 
 
 def num_to_str(num: int) -> str:
