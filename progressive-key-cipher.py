@@ -15,7 +15,7 @@ def mew_inverse(ord_value):
 def chunk_plaintext(text, n):
     chunked_text = []
     for i in range(0, len(text), n):
-        chunked_text.append(text[i:max(i+n, len(text))])
+        chunked_text.append(text[i:min(i+n, len(text))])
     return chunked_text
 
 
@@ -36,7 +36,7 @@ def apply_key(text, key):
 
 
 def encrypt(plaintext, key):
-    chunked_text = chunk_plaintext(plaintext, len(key))
+    chunked_text = chunk_plaintext(plaintext, len(key)-1)
     cipher_text = ''
     for chunk in chunked_text:
         cipher_text += apply_key(chunk, key)
@@ -45,3 +45,7 @@ def encrypt(plaintext, key):
 
 
 print(encrypt('cryptofun', 'code'))
+
+# list_key = list(zip([chr(i + ord('a')) for i in range(26)], range(26)))
+# for pair in list_key:
+#     print(pair)
